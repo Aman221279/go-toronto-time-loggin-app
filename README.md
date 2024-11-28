@@ -1,4 +1,4 @@
-# go-toronto-time-loggin-app
+# go-toronto-time-logging-app
 
 # Application Setup and Running Instructions
 

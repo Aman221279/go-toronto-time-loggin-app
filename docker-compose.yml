@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: toronto_time
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    networks:
+      - go-network
+
+  app:
+    build:
+      context: .
+    container_name: go_app_container
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - go-network
+    environment:
+      DB_USER: root
+      DB_PASSWORD: 123456
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: assignment
+    restart: always
+
+volumes:
+  db_data:
+
+networks:
+  go-network:
+    driver: bridge
